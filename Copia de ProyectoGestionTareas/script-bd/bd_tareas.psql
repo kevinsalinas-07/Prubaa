@@ -1,0 +1,47 @@
+-- BASE DE DATOS
+CREATE DATABASE bd_tareas;
+
+-- TABLA USUARIO
+CREATE TABLE usuario (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    tipo_usuario VARCHAR(50) NOT NULL
+);
+
+-- TABLA ELEMENTO (Centraliza Tareas y Recordatorios aplicando Herencia)
+CREATE TABLE elemento (
+    id SERIAL PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    titulo VARCHAR(200) NOT NULL,
+    descripcion TEXT,
+    prioridad VARCHAR(50) NOT NULL,
+    tipo_elemento VARCHAR(50) NOT NULL,  -- 'TAREA' o 'RECORDATORIO'
+    estado VARCHAR(50),                  -- Aplica solo para tareas
+    fecha_recordatorio DATE,             -- Aplica solo para recordatorios
+
+    CONSTRAINT fk_usuario
+        FOREIGN KEY (usuario_id)
+        REFERENCES usuario(id)
+        ON DELETE CASCADE
+);
+
+-- DATOS INICIALES (USUARIOS)
+INSERT INTO usuario (nombre, email, password, tipo_usuario) VALUES
+('Ana Lopez', 'ana@mail.com', 'ana123', 'Clasico'),
+('Carlos Ramirez', 'carlos@mail.com', 'carlos456', 'Premium'),
+('Maria Garcia', 'maria@mail.com', 'maria789', 'Clasico');
+
+-- DATOS INICIALES (TAREAS)
+-- Recordá que el estado debe coincidir con tu Enum (PENDIENTE, EN_PROGRESO, COMPLETADA, CANCELADA)
+INSERT INTO elemento (usuario_id, titulo, descripcion, prioridad, tipo_elemento, estado) VALUES
+(1, 'Estudiar para parcial', 'Repasar capitulos 5 al 8 de Calculo II', 'ALTA', 'TAREA', 'PENDIENTE'),
+(2, 'Preparar exposicion', 'Crear diapositivas sobre patrones de diseno', 'MEDIA', 'TAREA', 'EN_PROGRESO'),
+(3, 'Completar laboratorio', 'Resolver ejercicios de circuitos en serie', 'BAJA', 'TAREA', 'COMPLETADA');
+
+-- DATOS INICIALES (RECORDATORIOS)
+-- La fecha se guarda en formato YYYY-MM-DD
+INSERT INTO elemento (usuario_id, titulo, descripcion, prioridad, tipo_elemento, fecha_recordatorio) VALUES
+(1, 'Entrega de proyecto final', 'Subir proyecto al aula virtual antes de medianoche', 'ALTA', 'RECORDATORIO', '2026-07-15'),
+(2, 'Examen final de POO', 'Laboratorio de computo a las 9 AM', 'ALTA', 'RECORDATORIO', '2026-07-20');

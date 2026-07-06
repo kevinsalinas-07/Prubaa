@@ -1,0 +1,281 @@
+* {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+.root {
+    -fx-background-color: #FFFFFF;
+    -fx-accent: #2D6CDF;
+}
+
+/* --- Paneles y tarjetas --- */
+.panel-marca {
+    -fx-background-color: #2D6CDF;
+}
+
+.tarjeta {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12;
+    -fx-border-color: #E4E2DA;
+    -fx-border-radius: 12;
+    -fx-border-width: 0.6;
+}
+
+.superficie {
+    -fx-background-color: #F7F6F2;
+    -fx-background-radius: 8;
+}
+
+.sidebar {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: transparent #E4E2DA transparent transparent;
+    -fx-border-width: 0 0.6 0 0;
+}
+
+.topbar {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: transparent transparent #E4E2DA transparent;
+    -fx-border-width: 0 0 0.6 0;
+}
+
+/* --- Textos --- */
+.titulo-app {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+}
+
+.titulo-pantalla {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A1A18;
+}
+
+.titulo-seccion {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A1A18;
+}
+
+.texto-secundario {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6F6E68;
+}
+
+.texto-muted {
+    -fx-font-size: 12px;
+    -fx-text-fill: #9A988F;
+}
+
+.label-campo {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6F6E68;
+}
+
+/* --- Botones --- */
+.boton-primario {
+    -fx-background-color: #2D6CDF;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-font-size: 13px;
+    -fx-padding: 9 18 9 18;
+    -fx-cursor: hand;
+}
+
+.boton-primario:hover {
+    -fx-background-color: #2159C4;
+}
+
+.boton-secundario {
+    -fx-background-color: transparent;
+    -fx-text-fill: #1A1A18;
+    -fx-border-color: #C9C7BC;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 13px;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+}
+
+.boton-secundario:hover {
+    -fx-background-color: #F7F6F2;
+}
+
+.boton-peligro {
+    -fx-background-color: transparent;
+    -fx-text-fill: #A32D2D;
+    -fx-border-color: #F09595;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 13px;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+}
+
+.boton-chip {
+    -fx-background-color: #E6F1FB;
+    -fx-text-fill: #185FA5;
+    -fx-background-radius: 8;
+    -fx-font-size: 12px;
+    -fx-padding: 6 14 6 14;
+    -fx-cursor: hand;
+}
+
+.boton-chip-seleccionado {
+    -fx-background-color: #2D6CDF;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-font-size: 12px;
+    -fx-padding: 6 14 6 14;
+    -fx-cursor: hand;
+}
+
+.link {
+    -fx-text-fill: #2D6CDF;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-underline: false;
+}
+
+.link:hover {
+    -fx-underline: true;
+}
+
+.nav-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6F6E68;
+    -fx-font-size: 13px;
+    -fx-padding: 8 10 8 10;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-alignment: center-left;
+}
+
+.nav-item:hover {
+    -fx-background-color: #F7F6F2;
+}
+
+.nav-item-activo {
+    -fx-background-color: #E6F1FB;
+    -fx-text-fill: #185FA5;
+    -fx-font-size: 13px;
+    -fx-padding: 8 10 8 10;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-alignment: center-left;
+}
+
+.fab {
+    -fx-background-color: #2D6CDF;
+    -fx-background-radius: 22;
+    -fx-min-width: 44;
+    -fx-min-height: 44;
+    -fx-max-width: 44;
+    -fx-max-height: 44;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-cursor: hand;
+}
+
+/* --- Campos de texto --- */
+.text-field, .password-field, .text-area, .combo-box {
+    -fx-background-color: #F7F6F2;
+    -fx-background-radius: 8;
+    -fx-border-color: #E4E2DA;
+    -fx-border-radius: 8;
+    -fx-font-size: 13px;
+    -fx-padding: 8 10 8 10;
+}
+
+.text-field:focused, .password-field:focused, .text-area:focused, .combo-box:focused {
+    -fx-border-color: #2D6CDF;
+}
+
+/* --- Badges de prioridad --- */
+.badge-alta {
+    -fx-background-color: #FCEBEB;
+    -fx-text-fill: #A32D2D;
+    -fx-background-radius: 8;
+    -fx-padding: 3 12 3 12;
+    -fx-font-size: 12px;
+}
+
+.badge-media {
+    -fx-background-color: #FAEEDA;
+    -fx-text-fill: #854F0B;
+    -fx-background-radius: 8;
+    -fx-padding: 3 12 3 12;
+    -fx-font-size: 12px;
+}
+
+.badge-baja {
+    -fx-background-color: #EAF3DE;
+    -fx-text-fill: #3B6D11;
+    -fx-background-radius: 8;
+    -fx-padding: 3 12 3 12;
+    -fx-font-size: 12px;
+}
+
+.badge-premium {
+    -fx-background-color: #EEEDFE;
+    -fx-text-fill: #3C3489;
+    -fx-background-radius: 8;
+    -fx-padding: 4 12 4 12;
+    -fx-font-size: 12px;
+}
+
+/* --- Avatar --- */
+.avatar {
+    -fx-background-color: #E6F1FB;
+    -fx-background-radius: 50;
+    -fx-alignment: center;
+}
+
+.avatar-texto {
+    -fx-text-fill: #185FA5;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+/* --- Tabla --- */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #6F6E68;
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #E4E2DA transparent;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #F7F6F2;
+}
+
+/* --- Toast de notificacion --- */
+.toast {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12;
+    -fx-border-color: #C9C7BC;
+    -fx-border-radius: 12;
+    -fx-border-width: 0.6;
+}
+
+.icono-campana {
+    -fx-background-color: #FAEEDA;
+    -fx-background-radius: 16;
+    -fx-min-width: 32;
+    -fx-min-height: 32;
+    -fx-max-width: 32;
+    -fx-max-height: 32;
+    -fx-alignment: center;
+}

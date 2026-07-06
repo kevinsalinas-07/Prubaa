@@ -1,0 +1,55 @@
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+    // Este es el plugin mágico que habilita el comando jlink para crear el .bat
+    id 'org.beryx.jlink' version '3.0.1'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+javafx {
+    version = "21"
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+application {
+    // 1. Actualizado al nombre real de tu clase
+    mainClass = 'org.example.MainFX'
+    // 2. El nombre de tu módulo (Asegurate de que sea el mismo que pusiste en module-info.java)
+    mainModule = 'ProyectoGestionTareas'
+}
+
+run {
+    standardInput = System.in
+}
+
+dependencies {
+    // 3. ¡Descomentado! Vital para que tu GestorUsuarios pueda conectarse a PostgreSQL
+    implementation 'org.postgresql:postgresql:42.7.3'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+// Configuración para el ejecutable que pidió la profe
+jlink {
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    launcher {
+        name = 'Remindly' // Así se llamará tu archivo ejecutable final (.bat)
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

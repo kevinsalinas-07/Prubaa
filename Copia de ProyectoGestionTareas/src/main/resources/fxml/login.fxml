@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.controlador.LoginController">
+
+    <VBox alignment="CENTER" spacing="14" styleClass="panel-marca" prefWidth="380" HBox.hgrow="NEVER">
+        <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+        <StackPane style="-fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 40;" prefWidth="80" prefHeight="80">
+            <Label text="R" style="-fx-text-fill: white; -fx-font-size: 30px; -fx-font-weight: bold;"/>
+        </StackPane>
+        <Label text="Remindly" styleClass="titulo-app"/>
+        <Label text="Organiza y comparte tareas y recordatorios con tu equipo." wrapText="true" textAlignment="CENTER"
+               style="-fx-text-fill: white; -fx-font-size: 13px; -fx-opacity: 0.85;" prefWidth="260"/>
+    </VBox>
+
+    <StackPane HBox.hgrow="ALWAYS">
+        <VBox maxWidth="320" spacing="6" alignment="CENTER_LEFT">
+            <Label text="Bienvenido de nuevo" styleClass="titulo-pantalla"/>
+            <Label text="Ingresa a tu cuenta para continuar." styleClass="texto-secundario"/>
+            <Region prefHeight="16"/>
+
+            <Label text="Correo" styleClass="label-campo"/>
+            <TextField fx:id="campoCorreo" promptText="nombre@uca.edu.sv"/>
+            <Region prefHeight="10"/>
+
+            <Label text="Contrasena" styleClass="label-campo"/>
+            <PasswordField fx:id="campoContrasena" promptText="Tu contrasena"/>
+            <Region prefHeight="20"/>
+
+            <Label fx:id="labelError" styleClass="texto-secundario" style="-fx-text-fill: #A32D2D;" visible="false" managed="false"/>
+
+            <Button text="Iniciar sesion" styleClass="boton-primario" maxWidth="Infinity" onAction="#onIniciarSesion"/>
+            <Region prefHeight="14"/>
+
+            <HBox alignment="CENTER" spacing="4">
+                <Label text="No tienes cuenta" styleClass="texto-secundario"/>
+                <Hyperlink text="Registrate" styleClass="link" onAction="#onIrARegistro"/>
+            </HBox>
+        </VBox>
+    </StackPane>
+</HBox>

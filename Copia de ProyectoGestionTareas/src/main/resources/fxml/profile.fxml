@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controlador.ProfileController">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16" styleClass="topbar">
+            <padding><Insets top="10" right="20" bottom="10" left="20"/></padding>
+            <StackPane style="-fx-background-color: #E6F1FB; -fx-background-radius: 15;" prefWidth="30" prefHeight="30">
+                <Label text="R" style="-fx-text-fill: #185FA5; -fx-font-weight: bold;"/>
+            </StackPane>
+            <Label text="Remindly" styleClass="titulo-seccion"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Hyperlink text="Volver al panel" styleClass="link" onAction="#onVolver"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox maxWidth="520" spacing="20">
+            <padding><Insets top="28" right="28" bottom="28" left="28"/></padding>
+
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <StackPane styleClass="avatar" prefWidth="56" prefHeight="56">
+                    <Label fx:id="labelIniciales" text="MG" styleClass="avatar-texto" style="-fx-font-size: 18px;"/>
+                </StackPane>
+                <VBox>
+                    <Label fx:id="labelNombre" text="Maria Gomez" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <Label fx:id="labelCorreo" text="mgomez@uca.edu.sv" styleClass="texto-secundario"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="labelBadgeTipo" text="Usuario premium" styleClass="badge-premium"/>
+            </HBox>
+
+            <HBox spacing="12">
+                <VBox styleClass="superficie" spacing="4" HBox.hgrow="ALWAYS">
+                    <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+                    <Label text="Tareas activas" styleClass="texto-secundario"/>
+                    <Label fx:id="labelTareasActivas" text="12" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+                </VBox>
+                <VBox styleClass="superficie" spacing="4" HBox.hgrow="ALWAYS">
+                    <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+                    <Label text="Elementos compartidos" styleClass="texto-secundario"/>
+                    <Label fx:id="labelCompartidos" text="4" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+                </VBox>
+            </HBox>
+
+            <Label text="Tipo de cuenta" styleClass="titulo-seccion"/>
+            <HBox spacing="12">
+                <VBox fx:id="cajaClasico" styleClass="tarjeta" spacing="6" HBox.hgrow="ALWAYS">
+                    <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+                    <Label text="Clasico" style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+                    <Label text="Hasta 5 tareas activas a la vez." styleClass="texto-muted" wrapText="true"/>
+                    <Label text="Comparte tareas con un usuario." styleClass="texto-muted" wrapText="true"/>
+                </VBox>
+                <VBox fx:id="cajaPremium" styleClass="tarjeta" spacing="6" HBox.hgrow="ALWAYS"
+                      style="-fx-border-color: #2D6CDF; -fx-border-width: 2; -fx-background-color: #E6F1FB;">
+                    <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+                    <Label text="Premium" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #185FA5;"/>
+                    <Label text="Tareas activas ilimitadas." style="-fx-text-fill: #185FA5;" wrapText="true"/>
+                    <Label text="Comparte con varios usuarios a la vez." style="-fx-text-fill: #185FA5;" wrapText="true"/>
+                </VBox>
+            </HBox>
+
+            <Label text="Datos de la cuenta" styleClass="titulo-seccion"/>
+            <VBox styleClass="tarjeta" spacing="0">
+                <padding><Insets top="4" right="16" bottom="4" left="16"/></padding>
+                <GridPane hgap="12" vgap="0">
+                    <columnConstraints>
+                        <ColumnConstraints/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+                    <Label text="Nombre" styleClass="texto-secundario" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <Label fx:id="labelNombreDato" text="Maria Gomez" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                    <Label text="Correo" styleClass="texto-secundario" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <Label fx:id="labelCorreoDato" text="mgomez@uca.edu.sv" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    <Label text="Contrasena" styleClass="texto-secundario" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <Hyperlink text="Cambiar" styleClass="link" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                </GridPane>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>
