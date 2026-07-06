@@ -1,8 +1,8 @@
 package org.example.controlador;
+
 import org.example.ui.SceneRouter;
 import javafx.collections.FXCollections;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -19,38 +19,20 @@ import org.example.model.Recordatorio;
 import org.example.model.Tarea;
 import org.example.model.Usuario;
 import org.example.threads.EnvioRecordatorio;
+import org.example.patterns.strategy.VisualizacionSimple; // Importación de la estrategia
 
 public class AppUIController {
 
-    @FXML
-    private ListView<Elemento> listaElementos;
-
-    @FXML
-    private Button botonFiltroTodos;
-
-    @FXML
-    private Button botonFiltroTareas;
-
-    @FXML
-    private Button botonFiltroRecordatorios;
-
-    @FXML
-    private Label labelIniciales;
-
-    @FXML
-    private Label labelNombreUsuario;
-
-    @FXML
-    private Label labelTipoUsuario;
-
-    @FXML
-    private VBox toastRecordatorio;
-
-    @FXML
-    private Label labelTituloToast;
-
-    @FXML
-    private Label labelFechaToast;
+    @FXML private ListView<Elemento> listaElementos;
+    @FXML private Button botonFiltroTodos;
+    @FXML private Button botonFiltroTareas;
+    @FXML private Button botonFiltroRecordatorios;
+    @FXML private Label labelIniciales;
+    @FXML private Label labelNombreUsuario;
+    @FXML private Label labelTipoUsuario;
+    @FXML private VBox toastRecordatorio;
+    @FXML private Label labelTituloToast;
+    @FXML private Label labelFechaToast;
 
     private ObservableList<Elemento> todosLosElementos;
 
@@ -67,6 +49,17 @@ public class AppUIController {
                 ? FXCollections.observableArrayList(usuarioActual.getElementos())
                 : FXCollections.observableArrayList();
 
+        // ====================================================================
+        // OPTIMIZACIÓN DEL PATRÓN STRATEGY:
+        // Ejecutamos la estrategia simple una sola vez por cada elemento al cargar
+        // el Dashboard, evitando saturar la consola durante el scroll.
+        System.out.println("\n[Patrón Strategy Activado - Resumen del Dashboard]");
+        for (Elemento e : todosLosElementos) {
+            e.setEstrategia(new VisualizacionSimple());
+            e.visualizar();
+        }
+        // ====================================================================
+
         listaElementos.setItems(todosLosElementos);
         listaElementos.setCellFactory(lista -> new ElementoListCell());
         listaElementos.setOnMouseClicked(evento -> {
@@ -77,7 +70,6 @@ public class AppUIController {
             }
         });
 
-        // Simula la activacion de un recordatorio con un hilo (ver clase EnvioRecordatorio).
         Recordatorio primerRecordatorio = todosLosElementos.stream()
                 .filter(e -> e instanceof Recordatorio)
                 .map(e -> (Recordatorio) e)
@@ -127,7 +119,6 @@ public class AppUIController {
 
     @FXML
     private void onAbrirNotificaciones() {
-        // Punto de extension: abrir un listado completo de notificaciones.
     }
 
     private void mostrarToast(Recordatorio recordatorio) {
@@ -148,10 +139,6 @@ public class AppUIController {
         onCerrarToast();
     }
 
-    /**
-     * Celda personalizada para mostrar cada Elemento con una barra de color
-     * segun su prioridad y un icono distinto para Tarea o Recordatorio.
-     */
     private static class ElementoListCell extends ListCell<Elemento> {
         @Override
         protected void updateItem(Elemento elemento, boolean vacio) {
@@ -161,6 +148,8 @@ public class AppUIController {
                 setGraphic(null);
                 return;
             }
+
+            // La lógica de impresión se movió al initialize() para mantener limpia la consola.
 
             Region barraPrioridad = new Region();
             barraPrioridad.setPrefSize(6, 34);

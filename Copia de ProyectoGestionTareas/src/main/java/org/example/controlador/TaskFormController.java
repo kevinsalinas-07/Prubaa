@@ -1,6 +1,7 @@
 package org.example.controlador;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -17,33 +18,16 @@ import java.time.LocalDate;
 
 public class TaskFormController {
 
-    @FXML
-    private TextField campoTitulo;
-
-    @FXML
-    private TextArea campoDescripcion;
-
-    @FXML
-    private ComboBox<String> comboTipo;
-
-    @FXML
-    private ComboBox<Estado> comboEstado;
-
-    @FXML
-    private ComboBox<Usuario> comboCompartirCon;
-
-    @FXML
-    private ToggleButton botonAlta;
-
-    @FXML
-    private ToggleButton botonMedia;
-
-    @FXML
-    private ToggleButton botonBaja;
+    @FXML private TextField campoTitulo;
+    @FXML private TextArea campoDescripcion;
+    @FXML private ComboBox<String> comboTipo;
+    @FXML private ComboBox<Estado> comboEstado;
+    @FXML private ComboBox<Usuario> comboCompartirCon;
+    @FXML private ToggleButton botonAlta;
+    @FXML private ToggleButton botonMedia;
+    @FXML private ToggleButton botonBaja;
 
     private Prioridad prioridadSeleccionada = Prioridad.ALTA;
-
-    // El único intermediario permitido por la arquitectura
     private final GestorUsuarios gestor = new GestorUsuarios();
 
     @FXML
@@ -60,7 +44,6 @@ public class TaskFormController {
             public String toString(Usuario usuario) {
                 return usuario == null ? "" : usuario.getNombre();
             }
-
             @Override
             public Usuario fromString(String string) {
                 return null;
@@ -99,21 +82,26 @@ public class TaskFormController {
 
         if ("Recordatorio".equals(comboTipo.getValue())) {
             Recordatorio recordatorio = new Recordatorio(0, titulo, descripcion, prioridadSeleccionada, LocalDate.now().plusDays(1));
-
-            // Todo el trabajo pesado se lo dejamos al gestor
             gestor.guardarNuevoElemento(usuarioActual, recordatorio);
-
         } else {
             Tarea tarea = new Tarea(0, titulo, descripcion, prioridadSeleccionada);
             tarea.cambiarEstado(comboEstado.getValue());
 
-            // Todo el trabajo pesado se lo dejamos al gestor
             gestor.guardarNuevoElemento(usuarioActual, tarea);
 
             Usuario destinatario = comboCompartirCon.getValue();
             if (destinatario != null) {
-                // Invocamos la concurrencia a través del gestor
-                gestor.compartirTareaConcurrente(tarea, usuarioActual, destinatario);
+                // CORRECCIÓN: Validamos primero la regla de negocio del tipo de usuario antes de lanzar el hilo
+                boolean puedeCompartir = usuarioActual.compartirTarea(tarea, destinatario);
+                if (puedeCompartir) {
+                    gestor.compartirTareaConcurrente(tarea, usuarioActual, destinatario);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Límite alcanzado");
+                    alert.setHeaderText(null);
+                    alert.setContentText("No se pudo compartir al crear la tarea. Si eres usuario Clásico, recuerda que solo puedes colaborar con un (1) usuario máximo.");
+                    alert.showAndWait();
+                }
             }
         }
 
