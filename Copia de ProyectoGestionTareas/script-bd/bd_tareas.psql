@@ -26,6 +26,14 @@ CREATE TABLE elemento (
         REFERENCES usuario(id)
         ON DELETE CASCADE
 );
+-- Tabla intermedia para manejar la relación muchos-a-muchos (Colaboración)
+CREATE TABLE elemento_compartido (
+    tarea_id INT NOT NULL,
+    usuario_id INT NOT NULL,
+    PRIMARY KEY (tarea_id, usuario_id),
+    CONSTRAINT fk_tarea FOREIGN KEY (tarea_id) REFERENCES elemento(id) ON DELETE CASCADE,
+    CONSTRAINT fk_usuario_destinatario FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
+);
 
 -- DATOS INICIALES (USUARIOS)
 INSERT INTO usuario (nombre, email, password, tipo_usuario) VALUES

@@ -114,4 +114,45 @@ public class TareaDAOImpl implements TareaDAO {
         }
         return null;
     }
+    @Override
+    public boolean compartirTareaBD(int tareaId, int destinatarioId) {
+        String sql = "INSERT INTO elemento_compartido (tarea_id, usuario_id) VALUES (?, ?)";
+        try (PreparedStatement stmt = getConexion().prepareStatement(sql)) {
+            stmt.setInt(1, tareaId);
+            stmt.setInt(2, destinatarioId);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("[DAO] Error al compartir (¿Quizás ya estaba compartida?): " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public List<Tarea> listarCompartidasPorUsuario(int usuarioId) {
+        List<Tarea> tareasCompartidas = new ArrayList<>();
+        // Unimos la tabla de elementos con la tabla intermedia para sacar las tareas que le regalaron
+        String sql = "SELECT e.* FROM elemento e " +
+                "INNER JOIN elemento_compartido ec ON e.id = ec.tarea_id " +
+                "WHERE ec.usuario_id = ? AND e.tipo_elemento = 'TAREA'";
+
+        try (PreparedStatement stmt = getConexion().prepareStatement(sql)) {
+            stmt.setInt(1, usuarioId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String titulo = rs.getString("titulo");
+                    String descripcion = rs.getString("descripcion");
+                    Prioridad prioridad = Prioridad.valueOf(rs.getString("prioridad"));
+
+                    Tarea t = new Tarea(id, titulo, descripcion, prioridad);
+                    t.cambiarEstado(Estado.valueOf(rs.getString("estado")));
+
+                    tareasCompartidas.add(t);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tareasCompartidas;
+    }
 }
