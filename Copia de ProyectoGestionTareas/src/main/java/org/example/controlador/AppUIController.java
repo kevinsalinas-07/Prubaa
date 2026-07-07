@@ -19,7 +19,7 @@ import org.example.model.Recordatorio;
 import org.example.model.Tarea;
 import org.example.model.Usuario;
 import org.example.threads.EnvioRecordatorio;
-import org.example.patterns.strategy.VisualizacionSimple; // Importación de la estrategia
+import org.example.patterns.strategy.VisualizacionSimple;
 
 public class AppUIController {
 
@@ -27,6 +27,7 @@ public class AppUIController {
     @FXML private Button botonFiltroTodos;
     @FXML private Button botonFiltroTareas;
     @FXML private Button botonFiltroRecordatorios;
+    @FXML private Button botonNuevoElemento; // NUEVO
     @FXML private Label labelIniciales;
     @FXML private Label labelNombreUsuario;
     @FXML private Label labelTipoUsuario;
@@ -49,16 +50,11 @@ public class AppUIController {
                 ? FXCollections.observableArrayList(usuarioActual.getElementos())
                 : FXCollections.observableArrayList();
 
-        // ====================================================================
-        // OPTIMIZACIÓN DEL PATRÓN STRATEGY:
-        // Ejecutamos la estrategia simple una sola vez por cada elemento al cargar
-        // el Dashboard, evitando saturar la consola durante el scroll.
         System.out.println("\n[Patrón Strategy Activado - Resumen del Dashboard]");
         for (Elemento e : todosLosElementos) {
             e.setEstrategia(new VisualizacionSimple());
             e.visualizar();
         }
-        // ====================================================================
 
         listaElementos.setItems(todosLosElementos);
         listaElementos.setCellFactory(lista -> new ElementoListCell());
@@ -85,6 +81,7 @@ public class AppUIController {
     private void onFiltrarTodos() {
         listaElementos.setItems(todosLosElementos);
         marcarFiltroActivo(botonFiltroTodos);
+        botonNuevoElemento.setText("+ Nueva tarea"); // NUEVO
     }
 
     @FXML
@@ -92,6 +89,7 @@ public class AppUIController {
         listaElementos.setItems(FXCollections.observableArrayList(
                 todosLosElementos.filtered(e -> e instanceof Tarea)));
         marcarFiltroActivo(botonFiltroTareas);
+        botonNuevoElemento.setText("+ Nueva tarea"); // NUEVO
     }
 
     @FXML
@@ -99,6 +97,7 @@ public class AppUIController {
         listaElementos.setItems(FXCollections.observableArrayList(
                 todosLosElementos.filtered(e -> e instanceof Recordatorio)));
         marcarFiltroActivo(botonFiltroRecordatorios);
+        botonNuevoElemento.setText("+ Nuevo recordatorio"); // NUEVO
     }
 
     private void marcarFiltroActivo(Button activo) {
@@ -109,6 +108,9 @@ public class AppUIController {
 
     @FXML
     private void onNuevaTarea() {
+        // NUEVO: detecta el tipo según el texto actual del botón y se lo pasa al formulario
+        String tipo = botonNuevoElemento.getText().contains("recordatorio") ? "Recordatorio" : "Tarea";
+        SceneRouter.setTipoPreseleccionado(tipo);
         SceneRouter.goToTaskForm();
     }
 
@@ -148,8 +150,6 @@ public class AppUIController {
                 setGraphic(null);
                 return;
             }
-
-            // La lógica de impresión se movió al initialize() para mantener limpia la consola.
 
             Region barraPrioridad = new Region();
             barraPrioridad.setPrefSize(6, 34);

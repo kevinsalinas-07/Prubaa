@@ -3,6 +3,8 @@ module ProyectoGestionTareas {
     requires java.sql;
     requires javafx.controls;
     requires javafx.fxml;
+    requires org.kordamp.ikonli.javafx;
+    requires org.kordamp.ikonli.feather;
 
     // Exportamos los paquetes para que JavaFX pueda ver tus clases
     exports org.example;
@@ -12,7 +14,6 @@ module ProyectoGestionTareas {
     exports org.example.service;
     exports org.example.ui;
 
-    // Le damos permiso especial a JavaFX para que inyecte los botones y textos (@FXML)
     opens org.example.controlador to javafx.fxml;
 
     // Le damos permiso a JavaFX para que pueda arrancar tu MainFX

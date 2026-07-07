@@ -55,7 +55,7 @@
                 <HBox alignment="CENTER_LEFT">
                     <Label text="Mis elementos" styleClass="titulo-pantalla"/>
                     <Region HBox.hgrow="ALWAYS"/>
-                    <Button text="+ Nueva tarea" styleClass="boton-primario" onAction="#onNuevaTarea"/>
+                    <Button fx:id="botonNuevoElemento" text="+ Nueva tarea" styleClass="boton-primario" onAction="#onNuevaTarea"/>
                 </HBox>
                 <ListView fx:id="listaElementos" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;"/>
             </VBox>

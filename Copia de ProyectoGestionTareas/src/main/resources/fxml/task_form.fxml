@@ -22,7 +22,7 @@
         <padding><Insets top="22" right="22" bottom="22" left="22"/></padding>
 
         <HBox alignment="CENTER_LEFT">
-            <Label text="Nueva tarea" styleClass="titulo-seccion"/>
+            <Label fx:id="labelTituloFormulario" text="Nueva tarea" styleClass="titulo-seccion"/>
             <Region HBox.hgrow="ALWAYS"/>
             <Button text="X" styleClass="boton-secundario" onAction="#onCancelar"/>
         </HBox>
@@ -56,6 +56,8 @@
 
         <Label text="Compartir con" styleClass="label-campo"/>
         <ComboBox fx:id="comboCompartirCon" promptText="Selecciona un usuario" maxWidth="Infinity"/>
+
+        <Label fx:id="labelErrorFormulario" styleClass="texto-secundario" style="-fx-text-fill: #A32D2D;" visible="false" managed="false" wrapText="true"/>
 
         <Region prefHeight="6"/>
         <HBox spacing="8">

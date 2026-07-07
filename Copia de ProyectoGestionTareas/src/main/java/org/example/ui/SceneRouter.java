@@ -9,16 +9,12 @@ import org.example.model.Usuario;
 
 import java.io.IOException;
 
-/**
- * Controla la navegacion entre pantallas y guarda el estado minimo
- * de la sesion (usuario actual, elemento seleccionado) mientras el
- * usuario navega por la aplicacion.
- */
 public final class SceneRouter {
 
     private static Stage stage;
     private static Usuario usuarioActual;
     private static Tarea elementoSeleccionado;
+    private static String tipoPreseleccionado = "Tarea"; // NUEVO
 
     private SceneRouter() {
     }
@@ -41,6 +37,15 @@ public final class SceneRouter {
 
     public static Tarea getElementoSeleccionado() {
         return elementoSeleccionado;
+    }
+
+    // NUEVO: para que el formulario sepa qué tipo preseleccionar
+    public static void setTipoPreseleccionado(String tipo) {
+        tipoPreseleccionado = tipo;
+    }
+
+    public static String getTipoPreseleccionado() {
+        return tipoPreseleccionado;
     }
 
     public static void goToLogin() {

@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.example.controlador.LoginController">
@@ -18,7 +19,7 @@
     <VBox alignment="CENTER" spacing="14" styleClass="panel-marca" prefWidth="380" HBox.hgrow="NEVER">
         <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
         <StackPane style="-fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 40;" prefWidth="80" prefHeight="80">
-            <Label text="R" style="-fx-text-fill: white; -fx-font-size: 30px; -fx-font-weight: bold;"/>
+            <FontIcon iconLiteral="fth-bell" iconSize="34" iconColor="white"/>
         </StackPane>
         <Label text="Remindly" styleClass="titulo-app"/>
         <Label text="Organiza y comparte tareas y recordatorios con tu equipo." wrapText="true" textAlignment="CENTER"
